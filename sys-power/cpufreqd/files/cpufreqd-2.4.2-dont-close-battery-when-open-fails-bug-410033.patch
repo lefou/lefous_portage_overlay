@@ -1,0 +1,11 @@
+--- src/cpufreqd_acpi_battery.c~	2012-03-28 15:18:03.000000000 +0100
++++ src/cpufreqd_acpi_battery.c	2012-03-28 15:40:41.037698034 +0100
+@@ -177,7 +177,7 @@
+ 		if (open_battery(&info[i]) != 0) {
+ 			clog(LOG_WARNING, "Couldn't open %s attributes\n",
+ 					info[i].cdev->name);
+-			close_battery(&info[i]);
++			//close_battery(&info[i]);
+ 		}
+ 	}
+ 	clog(LOG_INFO, "found %d Batter%s\n", bat_dir_num,

@@ -1,0 +1,19 @@
+--- module-rebuild	2007-01-14 14:44:08.000000000 +0100
++++ module-rebuild	2007-01-14 13:52:04.000000000 +0100
+@@ -198,13 +198,14 @@
+ 	done
+ 	echo
+ 
+-	emerge --oneshot --nodeps ${tomerge[@]}
++	#emerge --oneshot --nodeps ${tomerge[@]}
++	paludis --install --preserve-world --dl-upgrade as-needed ${tomerge[@]}
+ }
+ 
+ phelp() {
+ cat << EOF
+ module-rebuild [options] action [category/package]
+-Version: ${R_VERSION}
++Version: ${R_VERSION} (with lefous patch for paludis support)
+ 
+ Where options are:
+ 	-X       - Emerge based on package names,

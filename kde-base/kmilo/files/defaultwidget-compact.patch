@@ -1,0 +1,164 @@
+diff -ru kmilo-3.5.5-orig/kmilo/kmilod/defaultwidget.ui kmilo-3.5.5/kmilo/kmilod/defaultwidget.ui
+--- kmilo-3.5.5-orig/kmilo/kmilod/defaultwidget.ui	2007-04-14 02:02:11.000000000 +0000
++++ kmilo-3.5.5/kmilo/kmilod/defaultwidget.ui	2007-04-14 02:02:22.000000000 +0000
+@@ -11,15 +11,15 @@
+         <rect>
+             <x>0</x>
+             <y>0</y>
+-            <width>566</width>
+-            <height>180</height>
++            <width>140</width>
++            <height>40</height>
+         </rect>
+     </property>
+     <property name="paletteBackgroundColor">
+         <color>
+-            <red>214</red>
+-            <green>213</green>
+-            <blue>212</blue>
++            <red>240</red>
++            <green>240</green>
++            <blue>240</blue>
+         </color>
+     </property>
+     <grid>
+@@ -32,9 +32,9 @@
+             </property>
+             <property name="paletteBackgroundColor">
+                 <color>
+-                    <red>214</red>
+-                    <green>213</green>
+-                    <blue>212</blue>
++                    <red>240</red>
++                    <green>240</green>
++                    <blue>240</blue>
+                 </color>
+             </property>
+             <property name="frameShape">
+@@ -60,21 +60,21 @@
+                         </property>
+                         <property name="paletteForegroundColor">
+                             <color>
+-                                <red>26</red>
+-                                <green>69</green>
+-                                <blue>198</blue>
++                                <red>80</red>
++                                <green>80</green>
++                                <blue>80</blue>
+                             </color>
+                         </property>
+                         <property name="paletteBackgroundColor">
+                             <color>
+-                                <red>214</red>
+-                                <green>213</green>
+-                                <blue>212</blue>
++                                <red>240</red>
++                                <green>240</green>
++                                <blue>240</blue>
+                             </color>
+                         </property>
+                         <property name="font">
+                             <font>
+-                                <pointsize>28</pointsize>
++                                <pointsize>10</pointsize>
+                                 <bold>1</bold>
+                             </font>
+                         </property>
+@@ -98,41 +98,7 @@
+                     <property name="name">
+                         <cstring>unnamed</cstring>
+                     </property>
+-                    <spacer row="1" column="2">
+-                        <property name="name">
+-                            <cstring>spacer1</cstring>
+-                        </property>
+-                        <property name="orientation">
+-                            <enum>Horizontal</enum>
+-                        </property>
+-                        <property name="sizeType">
+-                            <enum>Expanding</enum>
+-                        </property>
+-                        <property name="sizeHint">
+-                            <size>
+-                                <width>81</width>
+-                                <height>31</height>
+-                            </size>
+-                        </property>
+-                    </spacer>
+-                    <spacer row="1" column="0">
+-                        <property name="name">
+-                            <cstring>spacer1_2</cstring>
+-                        </property>
+-                        <property name="orientation">
+-                            <enum>Horizontal</enum>
+-                        </property>
+-                        <property name="sizeType">
+-                            <enum>Expanding</enum>
+-                        </property>
+-                        <property name="sizeHint">
+-                            <size>
+-                                <width>81</width>
+-                                <height>31</height>
+-                            </size>
+-                        </property>
+-                    </spacer>
+-                    <widget class="QProgressBar" row="1" column="1">
++                    <widget class="QProgressBar" row="0" column="1" columnspan="2">
+                         <property name="name">
+                             <cstring>_progress</cstring>
+                         </property>
+@@ -146,36 +112,36 @@
+                         </property>
+                         <property name="paletteBackgroundColor">
+                             <color>
+-                                <red>214</red>
+-                                <green>213</green>
+-                                <blue>212</blue>
++                                <red>240</red>
++                                <green>240</green>
++                                <blue>240</blue>
+                             </color>
+                         </property>
+                         <property name="centerIndicator">
+                             <bool>false</bool>
+                         </property>
+                     </widget>
+-                    <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
++                    <widget class="QLabel" row="0" column="0">
+                         <property name="name">
+                             <cstring>_progressText</cstring>
+                         </property>
+                         <property name="paletteForegroundColor">
+                             <color>
+-                                <red>26</red>
+-                                <green>69</green>
+-                                <blue>198</blue>
++                                <red>80</red>
++                                <green>80</green>
++                                <blue>80</blue>
+                             </color>
+                         </property>
+                         <property name="paletteBackgroundColor">
+                             <color>
+-                                <red>214</red>
+-                                <green>213</green>
+-                                <blue>212</blue>
++                                <red>240</red>
++                                <green>240</green>
++                                <blue>240</blue>
+                             </color>
+                         </property>
+                         <property name="font">
+                             <font>
+-                                <pointsize>28</pointsize>
++                                <pointsize>10</pointsize>
+                                 <bold>1</bold>
+                             </font>
+                         </property>
+@@ -191,5 +157,5 @@
+         </widget>
+     </grid>
+ </widget>
+-<layoutdefaults spacing="6" margin="11"/>
++<layoutdefaults spacing="2" margin="2"/>
+ </UI>

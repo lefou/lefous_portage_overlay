@@ -1,0 +1,17 @@
+#!/sbin/runscript
+# file:/usr/portage.local/net-analyzer/hotsanic/files/0.5.0_pre3/hotsanic
+
+
+
+start() {
+	ebegin "Starting service hotsanic..."
+	/opt/hotsanic/rrdgraph start
+	eend $? "Failed to start hotsanic"
+}
+
+stop() {
+	ebegin "Stopping service hotsanic..."
+	/opt/hotsanic/rrdgraph stop
+	eend $? "Failed to stop hotsanic"
+}
+

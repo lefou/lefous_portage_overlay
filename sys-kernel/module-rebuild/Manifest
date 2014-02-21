@@ -1,0 +1,15 @@
+AUX module-rebuild-0.5 6574 RMD160 58299a46e61ce38fa4b9089c89225ee3912c1e70 SHA1 65594652c4fc542a5c676b441573317e00eb41fd SHA256 849a11601b47a4b7b864db28bc4e3a143acc08d286997d44a8ac0c4e58d20771
+MD5 325bc54cd9cdb43a8211c3c4ab872dcb files/module-rebuild-0.5 6574
+RMD160 58299a46e61ce38fa4b9089c89225ee3912c1e70 files/module-rebuild-0.5 6574
+SHA256 849a11601b47a4b7b864db28bc4e3a143acc08d286997d44a8ac0c4e58d20771 files/module-rebuild-0.5 6574
+AUX module-rebuild-0.5-paludis.patch 539 RMD160 ea9e443f652cd3bd0f98475d2c4014088460fae1 SHA1 2ddb24decf0f1275355b8b88d4c430a8b9cd0833 SHA256 c701e94ef93bc4803c44ce547562aa040d56605019341e61ba5c8b80d06cefe7
+MD5 28677502935459679c5a5de1fc74d736 files/module-rebuild-0.5-paludis.patch 539
+RMD160 ea9e443f652cd3bd0f98475d2c4014088460fae1 files/module-rebuild-0.5-paludis.patch 539
+SHA256 c701e94ef93bc4803c44ce547562aa040d56605019341e61ba5c8b80d06cefe7 files/module-rebuild-0.5-paludis.patch 539
+EBUILD module-rebuild-0.5-r1.ebuild 687 RMD160 3fdb8b2158882e1accf4c7dbdf18881ddd924025 SHA1 5d721c322558824a91d89c385f4cfb6a9e4a98a3 SHA256 d7a81f230e3e228690578258baff6a1f3ea8fefe54a7e95bcb21b9b3fdc0d9de
+MD5 088a073df36862b6ac7bb3c33c82956b module-rebuild-0.5-r1.ebuild 687
+RMD160 3fdb8b2158882e1accf4c7dbdf18881ddd924025 module-rebuild-0.5-r1.ebuild 687
+SHA256 d7a81f230e3e228690578258baff6a1f3ea8fefe54a7e95bcb21b9b3fdc0d9de module-rebuild-0.5-r1.ebuild 687
+MD5 d41d8cd98f00b204e9800998ecf8427e files/digest-module-rebuild-0.5-r1 0
+RMD160 9c1185a5c5e9fc54612808977ee8f548b2258d31 files/digest-module-rebuild-0.5-r1 0
+SHA256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 files/digest-module-rebuild-0.5-r1 0

@@ -1,0 +1,39 @@
+#!/sbin/runscript
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="Distributed Tuning Interface Daemon"
+NAME=dtid
+DAEMON=/usr/local/psql/bin/dtid
+PIDFILE=/var/run/dtid.pid
+SCRIPTNAME=/etc/init.d/dtid
+
+depend() {
+	need psql-gentoo
+}
+
+start() {
+	ebegin "Starting $DESC: $NAME"
+	LD_LIBRARY_PATH="/usr/local/psql/lib:/usr/local/psql/lib-sykosch" /usr/local/psql/bin/dtid -d --pidfile /var/run/dtid.pid
+	eend $?
+}
+
+stop() {
+	
+	ebegin "Stopping $DESC: $NAME"
+
+	if [ -f /var/run/dtid.pid ]; then
+		kill `cat /var/run/dtid.pid`
+		eend $?
+	else
+		ewarn "Couldn't find dtid pid file - none runnig?"
+		eend 1
+	fi 
+}
+
+restart() {
+	einfo "Restarting $DESC: $NAME"
+	stop
+	sleep 1
+	start
+}

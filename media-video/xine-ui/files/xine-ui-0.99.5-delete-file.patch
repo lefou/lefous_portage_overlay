@@ -1,0 +1,52 @@
+--- xine-ui-0.99.5.orig/src/xitk/event.c	2007-04-10 00:39:35.000000000 +0200
++++ xine-ui-0.99.5/src//xitk/event.c	2009-02-16 21:21:45.000000000 +0100
+@@ -360,7 +360,9 @@
+  */
+ void gui_execute_action_id(action_id_t action) {
+   xine_event_t   xine_event;
+-  
++  /* current (played) mrl. used in DELETE_FILE. */
++  char *mrl;
++
+   if(action & ACTID_IS_INPUT_EVENT) {
+     if((action >= ACTID_EVENT_NUMBER_0) && (action <= ACTID_EVENT_NUMBER_9)) {
+ 
+@@ -1005,6 +1007,16 @@
+ 		       (gGui->playlist.control & PLAYLIST_CONTROL_STOP) ? _("Stop") : _("Continue"));
+     }
+     break;
++
++  case ACTID_DELETE_FILE:
++    mrl = strndup(gGui->mmk.mrl, strlen(gGui->mmk.mrl));
++    fprintf(stderr, " --> File marked to delete: '%s'\n", mrl);
++    if (!gGui->numeric.set)
++      gui_nextprev(NULL, (void*)GUI_NEXT);
++    else
++      gui_direct_nextprev(NULL, (void*)GUI_NEXT, gGui->numeric.arg);
++    osd_display_info(_("File marked for deletion: %s"), mrl);
++    break;
+     
+   default:
+     break;
+--- xine-ui-0.99.5.orig/src/xitk/kbindings.h	2007-04-10 00:39:35.000000000 +0200
++++ xine-ui-0.99.5/src//xitk/kbindings.h	2009-02-16 16:34:13.000000000 +0100
+@@ -146,6 +146,7 @@
+   ACTID_OSD_MENU,
+   ACTID_APP,
+   ACTID_APP_ENABLE,
++  ACTID_DELETE_FILE,
+ 
+   /*
+    * The below events map one-to-one with definitions in xine-lib's events.h 
+--- xine-ui-0.99.5.orig/src/xitk/kbindings.c	2007-04-10 00:39:35.000000000 +0200
++++ xine-ui-0.99.5/src//xitk/kbindings.c	2009-02-16 16:33:53.000000000 +0100
+@@ -521,6 +521,9 @@
+     "VDRChannelPrevious",     ACTID_EVENT_VDR_CHANNELPREVIOUS, "VOID",     KEYMOD_NOMOD   , 0 , 0},
+ #endif
+ #endif
++  { "Delete the current file",
++    "DeleteFile",             ACTID_DELETE_FILE              , "Delete",   KEYMOD_NOMOD   , 0 , 0},
++
+   { 0,
+     0,                        0                              , 0,          0              , 0 , 0}
+ };

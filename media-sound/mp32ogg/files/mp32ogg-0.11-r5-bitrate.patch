@@ -1,0 +1,46 @@
+--- /usr/bin/mp32ogg	2007-01-10 19:11:51.000000000 +0100
++++ mp32ogg	2007-01-10 19:31:45.000000000 +0100
+@@ -84,7 +84,7 @@
+ # 0.1
+ #     First Release
+ 
+-$version = "v0.11-gentoo";
++$version = "v0.11-gentoo, with bitrate patch from lefou";
+ 
+ use MP3::Info;
+ use File::Find ();
+@@ -107,9 +107,11 @@
+ print "Released without warranty under the terms of the Artistic License\n\n";
+ 
+ my $userquality=-2.0;
++my $bitrate=-1;
+ 
+ GetOptions("help|?",\&showhelp,
+ 		"quality=f" => \$userquality,
++		"bitrate=i" => \$bitrate,
+ 		"delete", 
+ 		"rename=s", 
+ 		"lowercase",
+@@ -120,6 +122,7 @@
+ sub showhelp() {
+ 	print "Usage: $0 [options] dir1 dir2 file1 file2 ...\n\n";
+ 	print "Options:\n";
++	print "--bitrate=n              Set Ogg/Vorbis bitrate to \n";
+ 	print "--quality=[-1..10]       Set Ogg/Vorbis quality level\n";
+ 	print "                         Defaults to bitrate of original .mp3\n";
+ 	print "--delete                 Delete files after converting\n";
+@@ -278,7 +281,13 @@
+ 	
+ 	$oggoutputfile_escaped = shell_quote($oggoutputfile);
+ 	$mp3file_escaped = shell_quote($mp3file);
+-	$result = system("$mpg123 -q -s $mp3file_escaped 2>/dev/null | $oggenc -q $quality --quiet --raw --raw-rate=$frequency --raw-chan=$channels -o $oggoutputfile_escaped $infostring -");
++	my $result;
++	if( $bitrate > 0 ) {
++		$result = system("$mpg123 -q -s $mp3file_escaped 2>/dev/null | $oggenc -b $bitrate --quiet --raw --raw-rate=$frequency --raw-chan=$channels -o $oggoutputfile_escaped $infostring -");
++	}
++	else {
++		$result = system("$mpg123 -q -s $mp3file_escaped 2>/dev/null | $oggenc -q $quality --quiet --raw --raw-rate=$frequency --raw-chan=$channels -o $oggoutputfile_escaped $infostring -");
++	}
+ 
+ 	if(!$result) {
+ 	   open(CHECK,"$ogginfo $oggoutputfile_escaped |");

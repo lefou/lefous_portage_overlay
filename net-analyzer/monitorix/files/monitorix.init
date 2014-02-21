@@ -1,0 +1,40 @@
+#!/sbin/runscript
+
+LOCK="/var/lock/monitorix"
+CRON_PATH="/etc/cron.d"
+
+start() {
+	ebegin "Starting monitorix"
+
+	if [ -e $LOCK ] ; then
+		einfo monitorix allready running
+		eend 1
+	else
+		touch $LOCK
+		# Generates a new index.html and creates PC LAN counters (if needed)
+		/usr/sbin/monitorix.pl init
+		# Creates RRDs files (if needed)
+		/usr/sbin/monitorix.pl create
+		/bin/mv $CRON_PATH/.monitorix $CRON_PATH/monitorix
+		eend 0
+	fi
+}
+
+stop() {
+	ebegin "Stopping monitorix"
+	if [ -e $LOCK ] ; then
+		rm -f $LOCK
+		/bin/mv $CRON_PATH/monitorix $CRON_PATH/.monitorix
+		eend 0
+	else
+		echo
+		echo "WARNING: You has selected to stop Monitorix AGAIN!"
+		echo "WARNING: This may destroy all your IP counters!."
+		echo
+		echo "If you only want to upgrade a new version, while mantaining Monitorix up"
+		echo "and running, simply type 'stop' and then 'start' or 'restart'."
+		echo
+		eend 1
+	fi
+}
+

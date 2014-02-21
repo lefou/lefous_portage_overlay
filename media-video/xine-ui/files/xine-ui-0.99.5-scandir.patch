@@ -1,0 +1,71 @@
+--- xine-ui-orig/src/xitk/mediamark.h	2007-11-14 20:37:24.000000000 +0100
++++ xine-ui/src/xitk/mediamark.h	2009-01-05 22:37:17.000000000 +0100
+@@ -87,6 +87,7 @@
+ 
+ int mrl_look_like_playlist(char *mrl);
+ int mrl_look_like_file(char *mrl);
++int pick_one(struct dirent *unused);
+ void mediamark_collect_from_directory(char *filepathname);
+ 
+ void mmk_editor_update_tips_timeout(unsigned long timeout);
+--- xine-ui-orig/src/xitk/mediamark.c	2008-12-31 20:45:57.000000000 +0100
++++ xine-ui/src/xitk/mediamark.c	2009-01-05 22:44:49.000000000 +0100
+@@ -2972,16 +2972,25 @@
+   return 1;
+ }
+ 
++int pick_one (struct dirent *unused) {
++  return 1;
++}
++
+ void mediamark_collect_from_directory(char *filepathname) {
+   DIR           *dir;
+-  struct dirent *dentry;
+-  
+-  if((dir = opendir(filepathname))) {
+-    
+-    while((dentry = readdir(dir))) {
++  struct dirent **eps;
++  int n;
++  int cnt;
++
++  n = scandir(filepathname, &eps, pick_one, alphasort);
++  if(n > 0) {
++    for(cnt = 0; cnt < n; ++cnt) {
++      /* dentry replaced by eps[cnt] */
++      /* pathname: eps[cnt]->d_name */
++
+       char fullpathname[XITK_PATH_MAX + XITK_NAME_MAX + 2] = "";
+       
+-      snprintf(fullpathname, sizeof(fullpathname) - 1, "%s/%s", filepathname, dentry->d_name);
++      snprintf(fullpathname, sizeof(fullpathname) - 1, "%s/%s", filepathname, eps[cnt]->d_name);
+       
+       if(strlen(fullpathname)) {
+ 
+@@ -2989,13 +2998,14 @@
+ 	  fullpathname[strlen(fullpathname) - 1] = '\0';
+ 	
+ 	if(is_a_dir(fullpathname)) {
+-	  if(!((strlen(dentry->d_name) == 1) && (dentry->d_name[0] == '.'))
+-	     && !((strlen(dentry->d_name) == 2) && 
+-		  ((dentry->d_name[0] == '.') && dentry->d_name[1] == '.'))) {
++	  if(!((strlen(eps[cnt]->d_name) == 1) && (eps[cnt]->d_name[0] == '.'))
++	     && !((strlen(eps[cnt]->d_name) == 2) && 
++		  ((eps[cnt]->d_name[0] == '.') && eps[cnt]->d_name[1] == '.'))) {
+ 	    mediamark_collect_from_directory(fullpathname);
+ 	  }
+ 	}
+ 	else {
++	  /* a file */
+ 	  char *p, *extension;
+ 	  char  loname[XITK_PATH_MAX + XITK_NAME_MAX + 2] = "";
+ 	  
+@@ -3025,7 +3035,7 @@
+ 	}
+       }
+     }
+-    closedir(dir);
++  /*  closedir(dir); */
+   }
+ }
+ 

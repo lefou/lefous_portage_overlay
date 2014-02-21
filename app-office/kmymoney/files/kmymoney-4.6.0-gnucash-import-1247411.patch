@@ -1,0 +1,19 @@
+--- trunk/extragear/office/kmymoney/kmymoney/converter/mymoneygncreader.cpp	2011/08/15 20:29:17	1247410
++++ trunk/extragear/office/kmymoney/kmymoney/converter/mymoneygncreader.cpp	2011/08/15 20:52:27	1247411
+@@ -1267,6 +1267,7 @@
+   if (bAnonymize) setFileHideFactor();
+   //m_defaultPayee = createPayee (i18n("Unknown payee"));
+ 
++  MyMoneyFile::instance()->attachStorage(m_storage);
+   MyMoneyFileTransaction ft;
+   m_xr = new XmlReader(this);
+   try {
+@@ -1277,6 +1278,7 @@
+     KMessageBox::error(0, i18n("Import failed:\n\n%1", e->what()), PACKAGE);
+     qWarning("%s", qPrintable(e->what()));
+   } // end catch
++  MyMoneyFile::instance()->detachStorage(m_storage);
+   signalProgress(0, 1, i18n("Import complete"));  // switch off progress bar
+   delete m_xr;
+   qDebug("Exiting gnucash importer");
+

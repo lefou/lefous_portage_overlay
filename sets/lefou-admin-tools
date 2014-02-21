@@ -1,0 +1,9 @@
+app-misc/colordiff
+>=app-portage/eix-0.13.3-r1
+>=app-portage/gentoolkit-0.2.4
+app-portage/gentoolkit-lefou
+app-portage/portage-utils
+app-portage/elogv
+dev-util/subversion
+app-admin/confcat
+app-portage/layman

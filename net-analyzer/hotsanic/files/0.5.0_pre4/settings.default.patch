@@ -1,0 +1,82 @@
+--- .settings.default	2003-04-16 22:06:41.000000000 +0200
++++ .settings.default.new	2003-08-15 12:20:57.000000000 +0200
+@@ -39,7 +39,7 @@
+ #     http://www.nt.phys.kyushu-u.ac.jp/shimizu/download/
+ #     (can be compiled without X support!!!)
+ 
+-OSTYPE="not configured"
++OSTYPE="Linux"
+ 
+ #####################################################################
+ #                                                                   #
+@@ -52,29 +52,29 @@
+ #
+ #   DAEMONDIR="/home/daemon/HotSaNIC"
+ #
+-DAEMONDIR="not configured"
++DAEMONDIR="/opt/hotsanic"
+ 
+ # path to the "rrdtool" binary
+ # this has to be a directory !
+ #
+ #   BINPATH="/usr/local/rrdtool-1.0.33/bin"
+ #
+-BINPATH="not configured"
++BINPATH="/usr/bin"
+ 
+ # set LOGDIR to the directory where logfiles shall be created
+ #   LOGDIR="$DAEMONDIR/var/log/"
+ #
+-VARDIR="$DAEMONDIR/var/"
++VARDIR="/var/"
+ 
+ # set LOGDIR to the directory where logfiles shall be created
+ #   LOGDIR="$DAEMONDIR/var/log/"
+ #
+-LOGDIR="$DAEMONDIR/var/log/"
++LOGDIR="/var/log/hotsanic"
+ 
+ # path to the pid-file for the daemon
+ #   PIDFILE="$DAEMONDIR/log/rrdtimer.pid"
+ #
+-PIDFILE="$DAEMONDIR/var/run/rrdtimer.pid"
++PIDFILE="/var/run/rrdtimer.pid"
+ 
+ 
+ 
+@@ -128,7 +128,7 @@
+ # this directory must be writeable for the rrdgraph tool
+ # because each plugin will create its own subdir here.
+ #
+-WEBDIR="not configured"
++WEBDIR="/var/www/localhost/htdocs/hotsanic"
+ 
+ # Sizes of all output-graphics in pixels
+ #
+@@ -177,14 +177,14 @@
+ #                tag instead. More data has to be transfered using
+ #                this method, but you won't need additional software.
+ #
+-CONVERTMETHOD="not configured"
++CONVERTMETHOD="ImgMgck"
+ 
+ # path to the "convert" binary from ImageMagick package
+ # this has to be the full path to the binary !
+ #
+ #   CONVERTPATH="/usr/X11R6/bin/convert"
+ #
+-CONVERTPATH="not configured"
++CONVERTPATH="/usr/bin/convert"
+ 
+ # How much shall the thumbnails be scaled compared to the originals.
+ # Default is 20%.
+@@ -214,6 +214,6 @@
+ # configure the full pathes to snmpwalk and snmpget binaries here.
+ # These may be needed to get data from remote machines.
+ #
+-SNMPWALK="not configured"
+-SNMPGET="not configured"
+-SNMPBULKWALK="not configured"
++SNMPWALK="/usr/bin/snmpwalk"
++SNMPGET="/usr/bin/snmpget"
++SNMPBULKWALK="/usr/bin/snmpbulkwalk"

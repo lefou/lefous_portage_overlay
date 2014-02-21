@@ -1,0 +1,168 @@
+#!/sbin/runscript
+#
+# description: Starts and stops the Pervasive mkded and sqlmgr daemons
+
+depend() {
+	before dtid-gentoo
+}
+
+# Include source function library
+status_helper() {
+        local base=${1##*/}
+        local pid
+
+        # Test syntax.
+        if [ $# = 0 ] ; then
+                echo $"Usage: status {program}"
+                return 1
+        fi
+
+        # First try "pidof"
+        pid=`pidof -o $$ -o $PPID -o %PPID -x $1 || pidof -o $$ -o $PPID -o %PPID -x ${base}`
+        if [ "$pid" != "" ] ; then
+                echo $"${base} (pid $pid) is running..."
+                return 0
+        fi
+
+        # Next try "/var/run/*.pid" files
+        if [ -f /var/run/${base}.pid ] ; then
+                read pid < /var/run/${base}.pid
+                if [ "$pid" != "" ] ; then
+                        echo $"${base} dead but pid file exists"
+                        return 1
+                fi
+        fi
+        # See if /var/lock/subsys/ exists
+        if [ -f /var/lock/subsys/${base} ]; then
+                echo $"${base} dead but subsys locked"
+                return 2
+        fi
+        echo $"${base} is stopped"
+        return 3
+}
+
+
+start_psql(){
+	#echo -n "Starting Pervasive services"
+	SQLID=`/bin/ps ax | grep -v grep | grep sqlmgr | awk '{print $1}'`
+	BTRID=`/bin/ps ax | grep -v grep | grep mkded | awk '{print $1}'`
+	if [ "X$BTRID" != "X" -o "X$SQLID" != "X" ] ; then
+		echo Warning: the following service is running
+		if [ "X$BTRID" != "X" ] ; then
+			echo mkded
+		fi
+		if [ "X$SQLID" != "X" ] ; then
+			echo sqlmgr
+		fi
+		echo
+	fi
+	echo "cd $PVSW_ROOT/bin; . $PVSW_ROOT/bin/.bash_profile ; ./mkded	-start" | /bin/su - psql || exit 1
+	echo "cd $PVSW_ROOT/bin; . $PVSW_ROOT/bin/.bash_profile ; ./sqlmgr -start" | /bin/su - psql || exit 1
+	touch /var/lock/subsys/psql
+	#echo "."
+}
+
+stop_psql(){
+	#echo -n "Shutting down Pervasive services "
+	SQLID=`/bin/ps ax | grep -v grep | grep sqlmgr | awk '{print $1}'`
+	if [ "X$SQLID" != "X" ] ; then
+		if [ -x /usr/local/psql/bin/sqlmgr ] ; then
+			echo "cd $PVSW_ROOT/bin; . $PVSW_ROOT/bin/.bash_profile ; ./sqlmgr -stop"	| /bin/su - psql >/dev/null
+		else
+			kill -9 $SQLID
+		fi
+	fi
+	BTRID=`/bin/ps ax | grep -v grep | grep mkded | awk '{print $1}'`
+	if [ "X$BTRID" != "X" ] ; then
+		if [ -x /usr/local/psql/bin/mkded ] ; then
+			echo "cd $PVSW_ROOT/bin; . $PVSW_ROOT/bin/.bash_profile ; ./mkded -stop" | /bin/su - psql >/dev/null
+		else
+			kill -9 $BTRID
+		fi
+	fi
+	#echo "."
+	rm -f /var/lock/subsys/psql
+}
+
+force_psql(){
+	if [ -x $PVSW_ROOT/bin/mkded ] ; then
+		echo "cd $PVSW_ROOT/bin; . $PVSW_ROOT/bin/.bash_profile ; ./mkded -force" | /bin/su - psql >/dev/null
+	fi
+
+	# jme 27791
+	MEMORY=`ipcs -m | grep psql | awk '{print $2}' | tr -d "psql "`
+	if [ "X$MEMORY" != "X" ] ; then
+		for i in $MEMORY ; do
+			ipcrm shm $i >/dev/null
+		done
+	fi
+
+	SEMAFORES=`ipcs -s | grep psql | awk '{print $2}' | tr -d "psql "`
+	if [ "X$SEMAFORES" != "X" ] ; then
+		for i in $SEMAFORES ; do
+			ipcrm sem $i >/dev/null
+		done
+	fi
+	# em 40585
+	rm -f /tmp/PSSem*
+
+	# ayahin: defect 33091
+	SQLID=`/bin/ps ax | grep -v grep | grep sqlmgr | awk '{print $1}'`
+	BTRID=`/bin/ps ax | grep -v grep | grep mkded | awk '{print $1}'`
+	if [ "X$SQLID" != "X" ] ; then
+		kill -9 $SQLID
+	fi
+	if [ "X$BTRID" != "X" ] ; then
+		kill -9 $BTRID
+	fi
+
+	echo "."
+}
+
+# Setting up environment
+PVSW_ROOT=/usr/local/psql
+PATH=$PVSW_ROOT/bin:$PATH
+LD_LIBRARY_PATH=$PVSW_ROOT/lib
+cd $PVSW_ROOT/bin
+
+RETVAL=0
+TMPVAL=0
+
+start() {
+	ebegin "Starting Pervasive services"
+	cd $PVSW_ROOT/bin
+	start_psql
+	eend 0
+}
+
+stop() {
+	ebegin "Stopping Pervasive services"
+	cd $PVSW_ROOT/bin
+	stop_psql
+	eend 0
+}
+
+force() {
+	cd $PVSW_ROOT/bin
+	stop_psql
+	force_psql
+}
+
+restart() {
+	cd $PVSW_ROOT/bin
+	stop_psql
+	sleep 2
+	start_psql
+}
+status() {
+	cd $PVSW_ROOT/bin
+	echo "Status Pervasive services: "
+	status_helper mkded
+	RETVAL=$?
+	status_helper sqlmgr
+	TMPVAL=$?
+	if [ $RETVAL -eq 0 ] ; then
+	  RETVAL=$TMPVAL
+	fi
+	exit $RETVAL
+}

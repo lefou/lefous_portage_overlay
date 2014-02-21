@@ -1,0 +1,7 @@
+# testing ebuild for hotsanic
+# taken from http://www.gurkensalat.com/gentoo/hotsanic.ebuild.tar.gz
+# and then modified by Tobias Roeser
+=net-analyzer/hotsanic-0.5.0_pre4
+
+# not really working
+=app-portage/gentoolkit-lefou-0.6.4

@@ -1,0 +1,7 @@
+app-laptop/kthinkbat:tpsmapi - Support for smapi sysfs interface for ThinkPads provided by app-laptop/tp_smapi
+app-laptop/kthinkbat-svn:tpsmapi - Support for smapi sysfs interface for ThinkPads provided by app-laptop/tp_smapi
+app-portage/gentoolkit-lefou:paludis - Use paludis locations for package configuration files
+sys-kernel/module-rebuild:paludis - Use paludis to remerge the kernel module packages instead of emerge
+kde-base/kdelibs:async-kconfig - Extend KConfig API by a method which allows saving of configuration files asynchronously
+kde-base/libkonq:async-kconfig - Use extendes KConfig API to save browser history asynchronously (faster!)
+
