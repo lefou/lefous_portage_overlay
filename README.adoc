@@ -1,0 +1,39 @@
+= Overlay Repository for Gentoo Portage Package Manager
+
+== Using the overlay with layman
+
+Edit your layman config (`/etc/layman/layman.conf`) and add the overlays.xml file to the overlays section (second line):
+
+----
+overlays  : http://www.gentoo.org/proj/en/overlays/repositories.xml
+            http://lefou.github.io/lefous_portage_overlay/overlays.xml
+----
+
+Add and sync the overlay with layman:
+----
+bash$ layman -f
+
+ * Fetching remote list,...
+ * Remote list already up to date: http://www.gentoo.org/proj/en/overlays/repositories.xml
+ * Last-modified: Mon, 17 Mar 2014 01:40:03 GMT
+ * Fetching new list... http://lefou.github.io/lefous_portage_overlay/overlays.xml
+ * Last-modified: Tue, 18 Mar 2014 13:56:03 GMT
+ * Fetch Ok
+
+bash$ layman -a lefous_portage_overlay
+
+ * Adding overlay,...
+ * Running Git... # ( cd /var/lib/layman  && /usr/bin/git clone git://github.com/lefou/lefous_portage_overlay.git /var/lib/layman/lefous_portage_overlay )
+Klone nach '/var/lib/layman/lefous_portage_overlay'...
+remote: Reusing existing pack: 3, done.
+remote: Counting objects: 429, done.
+remote: Compressing objects: 100% (407/407), done.
+remote: Total 432 (delta 32), reused 0 (delta 0)
+Empfange Objekte: 100% (432/432), 188.19 KiB | 279.00 KiB/s, done.
+Löse Unterschiede auf: 100% (32/32), done.
+Checking connectivity... done
+ * Running Git... # ( cd /var/lib/layman/lefous_portage_overlay  && /usr/bin/git config user.name "layman" )
+ * Running Git... # ( cd /var/lib/layman/lefous_portage_overlay  && /usr/bin/git config user.email "layman@localhost" )
+ * Successfully added overlay(s) lefous_portage_overlay.
+
+----
