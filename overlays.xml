@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>                                                                                                     
+<repositories version="1.0">
+	<repo priority="50" quality="experimental" status="unofficial">
+		<name>lefous_portage_overlay</name>
+		<description>Custom ebuild from lefou.</description>
+		<homepage>http://github.com/lefou/lefous_portage_overlay</homepage>
+		<owner>
+			<email>le.petit.fou@web.de</email>
+		</owner>
+		<source type="git">git://github.com/lefou/lefous_portage_overlay.git</source>
+	</repo>
+</repositories>
+
