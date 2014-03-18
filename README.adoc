@@ -2,7 +2,7 @@
 
 == Using the overlay with layman
 
-Edit your layman config (`/etc/layman/layman.conf`) and add the overlays.xml file to the overlays section (second line):
+Edit your layman config (`/etc/layman/layman.conf`) and add the `overlays.xml` file to the overlays section (second line):
 
 ----
 overlays  : http://www.gentoo.org/proj/en/overlays/repositories.xml
