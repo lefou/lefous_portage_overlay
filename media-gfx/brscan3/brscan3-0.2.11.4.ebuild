@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-libs/libusb-compat"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}
