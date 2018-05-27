@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit subversion eutils
+EAPI=6
+inherit git-r3
 
-ESVN_REPO_URI="https://lepetitfou.dyndns.org/svn/gentoo/gentoolkit-lefou/trunk/"
-ESVN_BOOTSTRAP=""
+EGIT_REPO_URI="https://github.com/lefou/gentoolkit-lefou/"
 
 DESCRIPTION="A collection of sone usefull shorthand tools for Gentoo administation"
 HOMEPAGE="http://lepetitfou.dyndns.org/projects/gentoo"
@@ -23,7 +23,7 @@ RDEPEND="
 	"
 
 src_unpack() {
-	subversion_src_unpack
+	git-r3_src_unpack
 
 	cd ${S}
 	if use paludis ; then
@@ -35,7 +35,7 @@ src_unpack() {
 
 src_install() {
 	exeinto /usr/sbin
-	newexe eunstable.sh eunstable 
+	newexe eunstable.sh eunstable
 	dosym eunstable /usr/sbin/eunmask
 	dosym eunstable /usr/sbin/efullunmask
 	dosym eunstable /usr/sbin/enokeyword
@@ -43,7 +43,7 @@ src_install() {
 	newexe eupdate-unstable.pl eupdate-unstable
 
 	insinto /etc
-	doins gentoolkit-lefou.conf	
+	doins gentoolkit-lefou.conf
 
 	dodoc README
 }
