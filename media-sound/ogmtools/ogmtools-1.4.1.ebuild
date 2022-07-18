@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-sound/ogmtools/ogmtools-1.4.ebuild,v 1.4 2004/06/25 00:16:08 agriffis Exp $
 
+EAPI="5"
+
 inherit eutils
 
 DESCRIPTION="These tools allow information about (ogminfo) or extraction from (ogmdemux) or creation of (ogmmerge) OGG media streams"
