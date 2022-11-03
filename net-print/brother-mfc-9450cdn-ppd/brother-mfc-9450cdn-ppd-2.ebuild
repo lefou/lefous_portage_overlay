@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=6
 inherit eutils
 # A well-used example of an eclass function that needs eutils is epatch. If
 # your source needs patches applied, it's suggested to put your patch in the
